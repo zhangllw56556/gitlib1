@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+	
+	<div>
+		<input id="demo" placeholder="Please Select..." />
+	</div>
+<div style="text-align:center;">
+		<h2>时间控件</h2>
+		<div style="background: none;">
+			<label>日期:</label>
+			<input id="EndDate" runat="server"  readonly="readonly" style="width:30%;" />
+		</div> 
+		<br />
+		<div>
+			<label>时间:</label>
+			<input id="EndTime" runat="server"  readonly="readonly" style="width:30%;" />
+		</div>
+		<br />
+		<div>
+			<label>日期时间:</label>
+			<input id="AbsentEndDate" runat="server"  readonly="readonly" style="width:28%"/>
+		</div>
+
+	</div>
+	<div id="" style="height: 200px;">
+		<input type="radio" name="isFamilyMember" id="falseFamilyMember" value="0" /><label for="falseFamilyMember" class="margin-right-0">无</label>
+		<input type="radio" name="isFamilyMember" id="trueFamilyMember" value="1" class=""/><label for="trueFamilyMember" class="margin-right-0">有</label>
+		<button id="radiobtn">dianji</button>
+	</div>
+	<div><button id="test">测试</button></div>
+<script type="text/javascript" src="lib/jquery/1.11.3/jquery.js" ></script>
+<script type="text/javascript" src="lib/mobiscroll/mobiscroll-2.13.2.full.min.js" ></script>
+<link rel="stylesheet" href="lib/mobiscroll/mobiscroll-2.13.2.full.min.css" />
+<script type="text/javascript">
+$(function () {
+    //初始化配置参数      
+    
+    var currYear = (new Date()).getFullYear();	
+			var opt={};
+			opt.date = {preset : 'date'};
+			opt.datetime = {preset : 'datetime'};
+			opt.time = {preset : 'time'};
+			opt.default = {
+				theme: 'android-ics light', //皮肤样式
+		        display: 'modal', //显示方式 
+		        mode: 'scroller', //日期选择模式
+				dateFormat: 'yy-mm-dd',
+				lang: 'zh',
+				//showNow: true,
+				//nowText: "今天",
+				//dateOrder:"yymm",
+		        startYear: currYear - 10, //开始年份
+		        endYear: currYear + 80 //结束年份
+			};
+            //$("#EndDate").mobiscroll($.extend(opt['date'], opt['default']));//年月日型
+            opt.default.dateOrder="yymm";
+            opt.default.dateFormat="yy-mm";
+            
+            $("#EndDate").mobiscroll().date($.extend(opt['date'], opt['default']));//年月型
+            
+            var optDateTime = $.extend(opt['datetime'], opt['default']);
+	    var optTime = $.extend(opt['time'], opt['default']);
+            $("#AbsentEndDate").mobiscroll(optDateTime).datetime(optDateTime);//年月日时分型
+			$("#EndTime").mobiscroll(optTime).time(optTime);//时分型
+			
+	$("#radiobtn").click(function(){
+		
+		$("input:radio[name='isFamilyMember'][value='1']").prop("checked","checked");
+	});
+
+	$("#test").on("click",function(){
+		window.open("test2.html");
+	});
+});
+</script>
+</body>
+</html>
